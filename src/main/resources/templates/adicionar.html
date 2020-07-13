@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Adicionar</title>
+</head>
+<body>
+    <form action="#" th:action="@{/salvar}" method="post" th:object="${jogo}">
+        <input type="text" name="nome" placeholder="Nome do jogo" th:field="*{nome}" /> <br />
+        <input type="text" name="categoria" placeholder="categoria do jogo" th:field="*{categoria}" /> <br />
+        <input type="number" name="ano" placeholder="Ano de lançamento" th:field="*{anoLancamento}" /> <br />
+        <button type="submit">adicionar</button>
+    </form>
+</body>
+</html>
