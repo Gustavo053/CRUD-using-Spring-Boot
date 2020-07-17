@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -28,16 +29,16 @@ public class JogosController {
         List<Jogos> jogos = jogosService.findAll();
 
         Date date = new Date();
-        Integer date1 = date.getDate();
-        String parserDate1 = String.valueOf(date1);
-        Integer day = date.getDay();
+        Integer day = date.getDate();
         String parserDay = String.valueOf(day);
+        Integer month = date.getMonth() + 1;
+        String parserMonth = String.valueOf(month);
         Integer hours = date.getHours();
         String parserHours = String.valueOf(hours);
         Integer minute = date.getMinutes();
         String parserMinute = String.valueOf(minute);
-
-        String valueCookie = "data:"+parserDate1 + "/" + parserDay + "horas:" + parserHours + ":" + parserMinute;
+//
+        String valueCookie = "(data|hora):"+ parserDay + "." + parserMonth + "|" + parserHours + ":" + parserMinute;
 
         Cookie activeUser = new Cookie("activeUser", valueCookie);
         response.addCookie(activeUser);
@@ -57,11 +58,12 @@ public class JogosController {
     }
 
     @RequestMapping(value = "/salvar", method = RequestMethod.POST)
-    public String cadastrar(@ModelAttribute(name = "jogo") @Valid Jogos jogo, Errors errors){
+    public String cadastrar(@ModelAttribute(name = "jogo") @Valid Jogos jogo, Errors errors, RedirectAttributes ra){
         if (errors.hasErrors()) {
             return "adicionar";
         } else {
             jogosService.add(jogo);
+            ra.addFlashAttribute("success", true);
             return "redirect:/";
         }
 
