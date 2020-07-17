@@ -4,15 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class JogosController {
@@ -25,9 +24,26 @@ public class JogosController {
     }
 
     @RequestMapping("/")
-    public String getHome(Model model) {
+    public String getHome(Model model, HttpServletRequest request, HttpServletResponse response) {
         List<Jogos> jogos = jogosService.findAll();
+
+        Date date = new Date();
+        Integer date1 = date.getDate();
+        String parserDate1 = String.valueOf(date1);
+        Integer day = date.getDay();
+        String parserDay = String.valueOf(day);
+        Integer hours = date.getHours();
+        String parserHours = String.valueOf(hours);
+        Integer minute = date.getMinutes();
+        String parserMinute = String.valueOf(minute);
+
+        String valueCookie = "data:"+parserDate1 + "/" + parserDay + "horas:" + parserHours + ":" + parserMinute;
+
+        Cookie activeUser = new Cookie("activeUser", valueCookie);
+        response.addCookie(activeUser);
+
         model.addAttribute("jogosList", jogos);
+        model.addAttribute("cookie", valueCookie);
 
         return "index";
     }
@@ -41,7 +57,7 @@ public class JogosController {
     }
 
     @RequestMapping(value = "/salvar", method = RequestMethod.POST)
-    public String cadastrar(@ModelAttribute @Valid Jogos jogo, Errors errors){
+    public String cadastrar(@ModelAttribute(name = "jogo") @Valid Jogos jogo, Errors errors){
         if (errors.hasErrors()) {
             return "adicionar";
         } else {

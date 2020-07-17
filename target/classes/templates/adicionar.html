@@ -6,17 +6,21 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
 </head>
 <body>
-    <div class="card">
-        <div class="card-body">
-            <form action="#" th:action="@{/salvar}" method="post" th:object="${jogo}">
-                <input class="form-control"  type="text" name="nome" placeholder="Nome do jogo" th:field="*{nome}" /> <br />
-                <p th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></p>
-                <input class="form-control"  type="text" name="categoria" placeholder="categoria do jogo" th:field="*{categoria}" /> <br />
-                <p th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}"></p>
-                <input class="form-control"  type="number" name="anoLancamento" placeholder="Ano de lançamento" th:field="*{anoLancamento}" /> <br />
-                <p th:if="${#fields.hasErrors('anoLancamento')}" th:errors="*{anoLancamento}"></p>
-                <button class="btn btn-success" type="submit">adicionar</button>
-            </form>
+    <div class="container">
+        <h2 class="mt-2">Cadastrar um novo jogo</h2>
+        <div class="card">
+            <div class="card-body">
+                <form action="#" th:action="@{/salvar}" method="post" th:object="${jogo}">
+                    <input class="form-control"  type="text" name="nome" placeholder="Nome do jogo" th:field="*{nome}" /> <br />
+                    <p class="alert alert-danger" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></p>
+                    <input class="form-control"  type="text" name="categoria" placeholder="categoria do jogo" th:field="*{categoria}" /> <br />
+                    <p class="alert alert-danger" th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}"></p>
+                    <input class="form-control"  type="number" name="anoLancamento" placeholder="Ano de lançamento" th:field="*{anoLancamento}" /> <br />
+                    <p class="alert alert-danger" th:if="${#fields.hasErrors('anoLancamento')}" th:errors="*{anoLancamento}"></p>
+                    <button class="btn btn-success mt-4" type="submit">Adicionar</button>
+                    <button class="btn btn-primary mt-4" m type="reset">Cancelar</button>
+                </form>
+            </div>
         </div>
     </div>
 </body>

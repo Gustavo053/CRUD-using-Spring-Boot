@@ -6,9 +6,11 @@
     <link rel="stylesheet" href="index.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
 </head>
-<body>
+<body class="geral">
     <div class="cabecalho text-center">
-        <h2 class="">Store de Jogos</h2>
+        <h2 class="">Storege de Jogos</h2>
+        <h4>Último acesso:</h4>
+        <p th:text="${cookie}"></p>
         <a href="/adicionar">
             <button class="btn btn-success mt-4 mb-4">
                 Adicionar jogo
