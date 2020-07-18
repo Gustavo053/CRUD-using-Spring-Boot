@@ -25,7 +25,7 @@ public class JogosController {
     }
 
     @RequestMapping("/")
-    public String getHome(Model model, HttpServletRequest request, HttpServletResponse response) {
+    public String getHome(Model model, HttpServletResponse response) {
         List<Jogos> jogos = jogosService.findAll();
 
         Date date = new Date();

@@ -25,7 +25,6 @@ public class Jogos {
     @Size(min = 3, message = "A categoria deve conter, no mínimo, 3 dígitos  ")
     @NotBlank(message = "O campo não pode ser vazio")
     String categoria;
-    @Size(min = 4, max = 4, message = "A data deve conter 4 algarismos")
     @NotNull(message = "O campo não pode ser vazio")
-    String anoLancamento;
+    Integer anoLancamento;
 }

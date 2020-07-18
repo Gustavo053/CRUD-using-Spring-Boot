@@ -13,11 +13,11 @@
                 <form action="#" th:action="@{/salvar}" method="post" th:object="${jogo}">
                     <input type="hidden" name="view" value="editar" />
                     <input class="form-control" type="hidden" th:value="*{id}" name="id" />
-                    <input class="form-control" type="text" name="nome" placeholder="Nome do jogo" th:field="*{nome}" /> <br />
+                    <input required class="form-control" type="text" name="nome" placeholder="Nome do jogo" th:field="*{nome}" /> <br />
                     <p class="alert alert-danger" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></p>
-                    <input class="form-control" type="text" name="categoria" placeholder="categoria do jogo" th:field="*{categoria}" /> <br />
+                    <input required class="form-control" type="text" name="categoria" placeholder="categoria do jogo" th:field="*{categoria}" /> <br />
                     <p class="alert alert-danger" th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}"></p>
-                    <input class="form-control" type="number" name="ano" placeholder="Ano de lançamento" th:field="*{anoLancamento}" /> <br />
+                    <input required class="form-control" type="number" name="ano" placeholder="Ano de lançamento" th:field="*{anoLancamento}" /> <br />
                     <p class="alert alert-danger" th:if="${#fields.hasErrors('anoLancamento')}" th:errors="*{anoLancamento}"></p>
                     <button class="btn btn-success mt-4" type="submit mt-4">Editar</button>
                     <button class="btn btn-primary mt-4" type="reset">Cancelar</button>
