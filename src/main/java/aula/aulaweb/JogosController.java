@@ -37,7 +37,7 @@ public class JogosController {
         String parserHours = String.valueOf(hours);
         Integer minute = date.getMinutes();
         String parserMinute = String.valueOf(minute);
-//
+
         String valueCookie = "(data|hora):"+ parserDay + "." + parserMonth + "|" + parserHours + ":" + parserMinute;
 
         Cookie activeUser = new Cookie("activeUser", valueCookie);
@@ -58,15 +58,26 @@ public class JogosController {
     }
 
     @RequestMapping(value = "/salvar", method = RequestMethod.POST)
-    public String cadastrar(@ModelAttribute(name = "jogo") @Valid Jogos jogo, Errors errors, RedirectAttributes ra){
-        if (errors.hasErrors()) {
-            return "adicionar";
-        } else {
-            jogosService.add(jogo);
-            ra.addFlashAttribute("success", true);
-            return "redirect:/";
-        }
+    public String cadastrar(@ModelAttribute(name = "jogo") @Valid Jogos jogo, Errors errors, RedirectAttributes ra, HttpServletRequest request){
+        if (request.getParameter("view").equals("adicionar")) {
+            if (errors.hasErrors()) {
+                return "adicionar";
+            } else {
+                jogosService.add(jogo);
+                ra.addFlashAttribute("create", true);
 
+                return "redirect:/";
+            }
+        } else {
+            if (errors.hasErrors()) {
+                return "editar";
+            } else {
+                jogosService.add(jogo);
+                ra.addFlashAttribute("edit", true);
+
+                return "redirect:/";
+            }
+        }
     }
 
     @RequestMapping("/editar/{id}")
@@ -79,8 +90,9 @@ public class JogosController {
     }
 
     @RequestMapping("/deletar/{id}")
-    public String delete(@PathVariable(name = "id") Long id) {
+    public String delete(@PathVariable(name = "id") Long id, RedirectAttributes ra) {
         jogosService.delete(id);
+        ra.addFlashAttribute("delete", true);
 
         return "redirect:/";
     }
